@@ -19,9 +19,10 @@ class Resource extends AbstractGenerator implements GeneratorInterface
     /** **********************************************************************
      * Constructor.
      *
-     * @param string $mode                  Resource access mode.
+     * @param string    $file               File path.
+     * @param string    $mode               Resource access mode.
      ************************************************************************/
-    public function __construct(public string $mode) {}
+    public function __construct(public string $file, public string $mode) {}
     /** **********************************************************************
      * @inheritDoc
      *
@@ -29,8 +30,7 @@ class Resource extends AbstractGenerator implements GeneratorInterface
      ************************************************************************/
     public function generate(): mixed
     {
-        $file       = (new File())->generate();
-        $resource   = fopen($file, $this->mode);
+        $resource = fopen($this->file, $this->mode);
 
         if ($resource === false) {
             throw new LogicException(
