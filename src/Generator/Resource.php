@@ -34,7 +34,7 @@ class Resource extends AbstractGenerator implements GeneratorInterface
 
         if ($resource === false) {
             throw new LogicException(
-                "resource creating failed, access mode is \"{$this->mode}\""
+                "resource creating failed, access mode is \"$this->mode\""
             );
         }
 
