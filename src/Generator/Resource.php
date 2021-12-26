@@ -14,7 +14,7 @@ use function fclose;
  * @package HNV\Psr\Http\Helper
  * @author  Hvorostenko
  *************************************************************************************************/
-class Resource extends AbstractGenerator implements GeneratorInterface
+class Resource extends ClearableGenerator implements GeneratorInterface
 {
     /** **********************************************************************
      * Constructor.

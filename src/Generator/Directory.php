@@ -18,7 +18,7 @@ use const DIRECTORY_SEPARATOR;
  * @package HNV\Psr\Http\Helper
  * @author  Hvorostenko
  *************************************************************************************************/
-class Directory extends AbstractGenerator implements GeneratorInterface
+class Directory extends ClearableGenerator implements GeneratorInterface
 {
     /** **********************************************************************
      * @inheritDoc

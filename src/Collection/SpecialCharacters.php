@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace HNV\Http\Helper\Collection;
 /** ***********************************************************************************************
- * Special characters collection.
+ * Special character`s collection.
  *
  * @package HNV\Psr\Http\Helper
  * @author  Hvorostenko

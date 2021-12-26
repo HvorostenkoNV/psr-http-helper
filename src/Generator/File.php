@@ -17,7 +17,7 @@ use function sys_get_temp_dir;
  * @package HNV\Psr\Http\Helper
  * @author  Hvorostenko
  *************************************************************************************************/
-class File extends AbstractGenerator implements GeneratorInterface
+class File extends ClearableGenerator implements GeneratorInterface
 {
     /** **********************************************************************
      * Constructor.

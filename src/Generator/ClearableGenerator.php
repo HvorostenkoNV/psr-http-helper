@@ -5,12 +5,14 @@ namespace HNV\Http\Helper\Generator;
 
 use function register_shutdown_function;
 /** ***********************************************************************************************
- * Generator interface.
+ * Clearable abstract generator.
+ *
+ * Provides functionality to control and clear data after program ends.
  *
  * @package HNV\Psr\Http\Helper
  * @author  Hvorostenko
  *************************************************************************************************/
-abstract class AbstractGenerator implements GeneratorInterface
+abstract class ClearableGenerator
 {
     /** **********************************************************************
      * Set clearing callback function, that will be processed on program close.

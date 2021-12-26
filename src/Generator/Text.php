@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace HNV\Http\Helper\Generator;
 
-use function str_repeat;
+use function strlen;
+use function implode;
 use function rand;
 /** ***********************************************************************************************
  * Text generator.
@@ -13,6 +14,10 @@ use function rand;
  *************************************************************************************************/
 class Text implements GeneratorInterface
 {
+    private const CHARACTERS_IN_USE =
+        '0123456789'.
+        'abcdefghijklmnopqrstuvwxyz'.
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     /** **********************************************************************
      * @inheritDoc
      *
@@ -20,6 +25,24 @@ class Text implements GeneratorInterface
      ************************************************************************/
     public function generate(): string
     {
-        return str_repeat("data-data\n", rand(5, 15));
+        $characters         = self::CHARACTERS_IN_USE;
+        $charactersLength   = strlen($characters);
+        $lineLength         = rand(10,  100);
+        $linesCount         = rand(5,   200);
+        $result             = [];
+
+        while ($linesCount > 0) {
+            $line = '';
+
+            while ($lineLength > 0) {
+                $line .= $characters[rand(0, $charactersLength - 1)];
+                $lineLength--;
+            }
+
+            $result[] = $line;
+            $linesCount--;
+        }
+
+        return implode("\n", $result);
     }
 }
