@@ -11,8 +11,6 @@ use function in_array;
 use function strlen;
 
 /**
- * Text generator test.
- *
  * @internal
  * @covers TextGenerator
  * @small
@@ -20,8 +18,6 @@ use function strlen;
 class TextGeneratorTest extends TestCase
 {
     /**
-     * Test "Text::generate" provides any text value.
-     *
      * @covers Text::generate
      */
     public function testProvidesAnyValue(): void
@@ -36,8 +32,6 @@ class TextGeneratorTest extends TestCase
     }
 
     /**
-     * Test "Text::generate" provides not enough random value.
-     *
      * @covers Text::generate
      */
     public function testProvidesRandomValue(): void

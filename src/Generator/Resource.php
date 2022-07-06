@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace HNV\Http\Helper\Generator;
 
+use HNV\Http\Helper\Collection\Resource\AccessMode;
 use LogicException;
 
 use function fclose;
@@ -18,12 +19,13 @@ class Resource extends ClearableGenerator implements GeneratorInterface
     /**
      * Constructor.
      *
-     * @param string $file file path
-     * @param string $mode resource access mode
+     * @param string     $file file path
+     * @param AccessMode $mode resource access mode
      */
-    public function __construct(public string $file, public string $mode)
-    {
-        //TODO: resources collection
+    public function __construct(
+        private readonly string $file,
+        private readonly AccessMode $mode
+    ) {
     }
 
     /**
@@ -33,11 +35,11 @@ class Resource extends ClearableGenerator implements GeneratorInterface
      */
     public function generate(): mixed
     {
-        $resource = fopen($this->file, $this->mode);
+        $resource = fopen($this->file, $this->mode->value);
 
         if ($resource === false) {
             throw new LogicException(
-                "resource creating failed, access mode is \"{$this->mode}\""
+                "resource creating failed, access mode is \"{$this->mode->value}\""
             );
         }
 

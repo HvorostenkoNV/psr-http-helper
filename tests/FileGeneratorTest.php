@@ -13,8 +13,6 @@ use function pathinfo;
 use const PATHINFO_EXTENSION;
 
 /**
- * File generator test.
- *
  * @internal
  * @covers FileGenerator
  * @small
@@ -22,8 +20,6 @@ use const PATHINFO_EXTENSION;
 class FileGeneratorTest extends TestCase
 {
     /**
-     * Test "FileGenerator::generate" provides any file.
-     *
      * @covers FileGenerator::generate
      */
     public function testProvidesAnyValue(): void
@@ -38,8 +34,6 @@ class FileGeneratorTest extends TestCase
     }
 
     /**
-     * Test "FileGenerator::generate" provides file in expected condition.
-     *
      * @covers FileGenerator::generate
      */
     public function testProvidesFileInSuitableState(): void
@@ -58,12 +52,8 @@ class FileGeneratorTest extends TestCase
     }
 
     /**
-     * Test "FileGenerator::generate" provides file with extension, that was given.
-     *
      * @covers          FileGenerator::generate
      * @dataProvider    dataProviderExtensions
-     *
-     * @param string $extension file extension
      */
     public function testProvidesFileWithGivenExtension(string $extension): void
     {
@@ -78,8 +68,6 @@ class FileGeneratorTest extends TestCase
     }
 
     /**
-     * Test "FileGenerator::generate" provides file with no extension, if it was not given.
-     *
      * @covers FileGenerator::generate
      */
     public function testProvidesFileWithoutExtension(): void
@@ -96,8 +84,6 @@ class FileGeneratorTest extends TestCase
 
     /**
      * Data provider: files extensions.
-     *
-     * @return array data
      */
     public function dataProviderExtensions(): array
     {
