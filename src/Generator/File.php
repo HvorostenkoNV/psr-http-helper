@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace HNV\Http\Helper\Generator;
@@ -28,7 +29,7 @@ class File extends ClearableGenerator implements GeneratorInterface
     /** **********************************************************************
      * @inheritDoc
      *
-     * @return string                       Generated temporary file path.
+     * @return  string                      Generated temporary file path.
      ************************************************************************/
     public function generate(): string
     {
@@ -48,7 +49,7 @@ class File extends ClearableGenerator implements GeneratorInterface
     /** **********************************************************************
      * Create temporary file and get its path.
      *
-     * @return string                       File path.
+     * @return  string                      File path.
      ************************************************************************/
     private function createTemporaryFile(): string
     {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace HNV\Http\Helper\Generator;
@@ -23,9 +24,26 @@ class Directory extends ClearableGenerator implements GeneratorInterface
     /** **********************************************************************
      * @inheritDoc
      *
-     * @return string                       Generated temporary directory path.
+     * @return  string                      Generated temporary directory path.
      ************************************************************************/
     public function generate(): string
+    {
+        $directoryPath = $this->createTemporaryDirectory();
+
+        $this->clear(function() use ($directoryPath) {
+            if (is_dir($directoryPath)) {
+                unlink($directoryPath);
+            }
+        });
+
+        return $directoryPath;
+    }
+    /** **********************************************************************
+     * Create temporary directory and get its path.
+     *
+     * @return  string                      Directory path.
+     ************************************************************************/
+    private function createTemporaryDirectory(): string
     {
         $temporaryDirectory = sys_get_temp_dir();
         $directoryName      = uniqid('UT', true);
@@ -35,12 +53,6 @@ class Directory extends ClearableGenerator implements GeneratorInterface
         if ($creatingSuccess === false) {
             throw new LogicException('temporary directory creating failed');
         }
-
-        $this->clear(function() use ($directoryPath) {
-            if (is_dir($directoryPath)) {
-                unlink($directoryPath);
-            }
-        });
 
         return $directoryPath;
     }

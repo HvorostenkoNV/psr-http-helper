@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace HNV\Http\Helper\Generator;
@@ -19,14 +20,14 @@ class Resource extends ClearableGenerator implements GeneratorInterface
     /** **********************************************************************
      * Constructor.
      *
-     * @param string    $file               File path.
-     * @param string    $mode               Resource access mode.
+     * @param   string  $file               File path.
+     * @param   string  $mode               Resource access mode.
      ************************************************************************/
     public function __construct(public string $file, public string $mode) {}
     /** **********************************************************************
      * @inheritDoc
      *
-     * @return resource                     Generated resource.
+     * @return  resource                    Generated resource.
      ************************************************************************/
     public function generate(): mixed
     {
