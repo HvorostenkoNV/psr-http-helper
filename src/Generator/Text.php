@@ -1,34 +1,34 @@
 <?php
+
 declare(strict_types=1);
 
 namespace HNV\Http\Helper\Generator;
 
-use function strlen;
 use function implode;
 use function rand;
-/** ***********************************************************************************************
+use function strlen;
+
+/**
  * Text generator.
- *
- * @package HNV\Psr\Http\Helper
- * @author  Hvorostenko
- *************************************************************************************************/
+ */
 class Text implements GeneratorInterface
 {
     private const CHARACTERS_IN_USE =
         '0123456789'.
         'abcdefghijklmnopqrstuvwxyz'.
         'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    /** **********************************************************************
-     * @inheritDoc
+
+    /**
+     * {@inheritDoc}
      *
-     * @return string                       Generated random text.
-     ************************************************************************/
+     * @return string generated random text
+     */
     public function generate(): string
     {
         $characters         = self::CHARACTERS_IN_USE;
         $charactersLength   = strlen($characters);
-        $lineLength         = rand(10,  100);
-        $linesCount         = rand(5,   200);
+        $lineLength         = rand(10, 100);
+        $linesCount         = rand(5, 200);
         $result             = [];
 
         while ($linesCount > 0) {

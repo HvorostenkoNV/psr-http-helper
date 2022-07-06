@@ -1,48 +1,45 @@
 <?php
+
 declare(strict_types=1);
 
 namespace HNV\Http\HelperTests;
 
-use Throwable;
-use PHPUnit\Framework\TestCase;
 use HNV\Http\Helper\Generator\Text as TextGenerator;
+use PHPUnit\Framework\TestCase;
 
-use function strlen;
 use function in_array;
-/** ***********************************************************************************************
+use function strlen;
+
+/**
  * Text generator test.
  *
- * @package HNV\Psr\Http\Tests\Helper
- * @author  Hvorostenko
- *************************************************************************************************/
+ * @internal
+ * @covers TextGenerator
+ * @small
+ */
 class TextGeneratorTest extends TestCase
 {
-    /** **********************************************************************
+    /**
      * Test "Text::generate" provides any text value.
      *
-     * @covers  Text::generate
-     *
-     * @return  void
-     * @throws  Throwable
-     ************************************************************************/
+     * @covers Text::generate
+     */
     public function testProvidesAnyValue(): void
     {
         $generator  = new TextGenerator();
         $value      = $generator->generate();
 
-        self::assertTrue(
+        static::assertTrue(
             strlen($value) > 0,
             'Provided value is empty string'
         );
     }
-    /** **********************************************************************
+
+    /**
      * Test "Text::generate" provides not enough random value.
      *
-     * @covers  Text::generate
-     *
-     * @return  void
-     * @throws  Throwable
-     ************************************************************************/
+     * @covers Text::generate
+     */
     public function testProvidesRandomValue(): void
     {
         $generator  = new TextGenerator();
@@ -50,12 +47,12 @@ class TextGeneratorTest extends TestCase
 
         for ($iteration = 1; $iteration <= 100000; $iteration++) {
             $value          = $generator->generate();
-            $values[$value] = $values[$value] ?? 0;
+            $values[$value] ??= 0;
             $values[$value]++;
         }
 
-        self::assertTrue(
-            !in_array(2, $values),
+        static::assertTrue(
+            !in_array(2, $values, true),
             'Text generating randomizing is not enough'
         );
     }

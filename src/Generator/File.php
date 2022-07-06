@@ -6,31 +6,32 @@ namespace HNV\Http\Helper\Generator;
 
 use LogicException;
 
-use function strlen;
 use function is_file;
-use function tempnam;
 use function rename;
-use function unlink;
+use function strlen;
 use function sys_get_temp_dir;
-/** ***********************************************************************************************
+use function tempnam;
+use function unlink;
+
+/**
  * File generator.
- *
- * @package HNV\Psr\Http\Helper
- * @author  Hvorostenko
- *************************************************************************************************/
+ */
 class File extends ClearableGenerator implements GeneratorInterface
 {
-    /** **********************************************************************
+    /**
      * Constructor.
      *
-     * @param string $extension             File extension, optional.
-     ************************************************************************/
-    public function __construct(private string $extension = '') {}
-    /** **********************************************************************
-     * @inheritDoc
+     * @param string $extension file extension, optional
+     */
+    public function __construct(private readonly string $extension = '')
+    {
+    }
+
+    /**
+     * {@inheritDoc}
      *
-     * @return  string                      Generated temporary file path.
-     ************************************************************************/
+     * @return string generated temporary file path
+     */
     public function generate(): string
     {
         $filePath           = $this->createTemporaryFile();
@@ -38,7 +39,7 @@ class File extends ClearableGenerator implements GeneratorInterface
             ? $this->addTemporaryFileExtension($filePath, $this->extension)
             : $filePath;
 
-        $this->clear(function() use ($filePathComplete) {
+        $this->clear(function () use ($filePathComplete): void {
             if (is_file($filePathComplete)) {
                 unlink($filePathComplete);
             }
@@ -46,11 +47,10 @@ class File extends ClearableGenerator implements GeneratorInterface
 
         return $filePathComplete;
     }
-    /** **********************************************************************
+
+    /**
      * Create temporary file and get its path.
-     *
-     * @return  string                      File path.
-     ************************************************************************/
+     */
     private function createTemporaryFile(): string
     {
         $temporaryDirectory = sys_get_temp_dir();
@@ -62,17 +62,13 @@ class File extends ClearableGenerator implements GeneratorInterface
 
         return $temporaryFile;
     }
-    /** **********************************************************************
+
+    /**
      * Add temporary file extension and get its new complete path.
-     *
-     * @param   string  $filePath           File path.
-     * @param   string  $extension          Need file extension.
-     *
-     * @return  string                      File path new.
-     ************************************************************************/
+     */
     private function addTemporaryFileExtension(string $filePath, string $extension): string
     {
-        $filePathWithExtension  = "$filePath.$extension";
+        $filePathWithExtension  = "{$filePath}.{$extension}";
         $renameSuccess          = rename($filePath, $filePathWithExtension);
 
         if ($renameSuccess === false) {
