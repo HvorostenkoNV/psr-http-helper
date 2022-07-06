@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace HNV\Http\HelperTests;
 
+use HNV\Http\Helper\Collection\Resource\{
+    AccessMode,
+    AccessModeType,
+};
 use HNV\Http\Helper\Generator\{
     File        as FileGenerator,
     Resource    as ResourceGenerator,
@@ -14,8 +18,6 @@ use function is_resource;
 use function stream_get_meta_data;
 
 /**
- * Resource generator test.
- *
  * @internal
  * @covers ResourceGenerator
  * @small
@@ -23,14 +25,12 @@ use function stream_get_meta_data;
 class ResourceGeneratorTest extends TestCase
 {
     /**
-     * Test "ResourceGenerator::generate" provides any recourse.
-     *
      * @covers ResourceGenerator::generate
      */
     public function testProvidesAnyValue(): void
     {
         $file       = (new FileGenerator())->generate();
-        $generator  = new ResourceGenerator($file, 'r');
+        $generator  = new ResourceGenerator($file, AccessMode::READ_ONLY_POINTER_START);
         $recourse   = $generator->generate();
 
         static::assertTrue(
@@ -40,14 +40,10 @@ class ResourceGeneratorTest extends TestCase
     }
 
     /**
-     * Test "ResourceGenerator::generate" provides recourse in expected condition.
-     *
      * @covers          ResourceGenerator::generate
-     * @dataProvider    dataProviderRecourseOpenModes
-     *
-     * @param string $mode resource open mode
+     * @dataProvider    dataProviderModes
      */
-    public function testProvidesRecourseInSuitableState(string $mode): void
+    public function testProvidesRecourseInSuitableState(AccessMode $mode): void
     {
         $file           = (new FileGenerator())->generate();
         $generator      = new ResourceGenerator($file, $mode);
@@ -56,22 +52,26 @@ class ResourceGeneratorTest extends TestCase
 
         static::assertSame(
             $recourseData['mode'],
-            $mode,
+            $mode->value,
             'Provided recourse with not the same mode'
+        );
+        static::assertTrue(
+            $recourseData['seekable'],
+            'Provided recourse is not seekable as it should be'
         );
     }
 
     /**
      * Data provider: resource open modes.
-     *
-     * @return array data
      */
-    public function dataProviderRecourseOpenModes(): array
+    public function dataProviderModes(): array
     {
-        return [
-            ['r'],
-            ['w'],
-            ['a'],
-        ];
+        $result = [];
+
+        foreach (AccessMode::get(AccessModeType::ALL, AccessModeType::EXPECT_NO_FILE) as $mode) {
+            $result[] = [$mode];
+        }
+
+        return $result;
     }
 }

@@ -8,8 +8,6 @@ use HNV\Http\Helper\Generator\Directory as DirectoryGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Directory generator test.
- *
  * @internal
  * @covers DirectoryGenerator
  * @small
@@ -17,8 +15,6 @@ use PHPUnit\Framework\TestCase;
 class DirectoryGeneratorTest extends TestCase
 {
     /**
-     * Test "DirectoryGenerator::generate" provides any directory.
-     *
      * @covers DirectoryGenerator::generate
      */
     public function testProvidesAnyValue(): void
@@ -33,8 +29,6 @@ class DirectoryGeneratorTest extends TestCase
     }
 
     /**
-     * Test "DirectoryGenerator::generate" provides directory in expected condition.
-     *
      * @covers DirectoryGenerator::generate
      */
     public function testProvidesDirectoryInSuitableState(): void

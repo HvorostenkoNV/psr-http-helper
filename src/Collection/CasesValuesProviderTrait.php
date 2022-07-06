@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace HNV\Http\Helper\Collection;
 
@@ -13,9 +13,6 @@ use function array_column;
  */
 trait CasesValuesProviderTrait
 {
-    /**
-     * @return array
-     */
     public static function casesValues(): array
     {
         return array_column(self::cases(), 'value');
