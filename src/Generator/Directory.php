@@ -14,9 +14,6 @@ use function unlink;
 
 use const DIRECTORY_SEPARATOR;
 
-/**
- * Temporary directory generator.
- */
 class Directory extends ClearableGenerator implements GeneratorInterface
 {
     /**
@@ -37,9 +34,6 @@ class Directory extends ClearableGenerator implements GeneratorInterface
         return $directoryPath;
     }
 
-    /**
-     * Create temporary directory and get its path.
-     */
     private function createTemporaryDirectory(): string
     {
         $temporaryDirectory = sys_get_temp_dir();

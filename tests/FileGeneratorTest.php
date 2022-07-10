@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace HNV\Http\HelperTests;
 
 use HNV\Http\Helper\Generator\File as FileGenerator;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\{
+    Attributes,
+    TestCase,
+};
 
 use function is_file;
 use function pathinfo;
@@ -14,48 +17,42 @@ use const PATHINFO_EXTENSION;
 
 /**
  * @internal
- * @covers FileGenerator
- * @small
  */
+#[Attributes\CoversClass(FileGenerator::class)]
+#[Attributes\Small]
 class FileGeneratorTest extends TestCase
 {
-    /**
-     * @covers FileGenerator::generate
-     */
-    public function testProvidesAnyValue(): void
+    #[Attributes\Test]
+    public function generate(): void
     {
         $generator  = new FileGenerator();
         $file       = $generator->generate();
 
         static::assertTrue(
             is_file($file),
-            'Provided value is not a file'
+            'Generated data is not a file'
         );
     }
 
-    /**
-     * @covers FileGenerator::generate
-     */
-    public function testProvidesFileInSuitableState(): void
+    #[Attributes\Test]
+    public function generatedFileIsSuitable(): void
     {
         $generator  = new FileGenerator();
         $file       = $generator->generate();
 
         static::assertIsReadable(
             $file,
-            'Provided file is not readable'
+            'Generated file is not readable'
         );
         static::assertIsWritable(
             $file,
-            'Provided file is not writable'
+            'Generated file is not writable'
         );
     }
 
-    /**
-     * @covers          FileGenerator::generate
-     * @dataProvider    dataProviderExtensions
-     */
-    public function testProvidesFileWithGivenExtension(string $extension): void
+    #[Attributes\Test]
+    #[Attributes\DataProvider('dataProviderExtensions')]
+    public function generatedFileExtension(string $extension): void
     {
         $generator  = new FileGenerator($extension);
         $file       = $generator->generate();
@@ -63,14 +60,12 @@ class FileGeneratorTest extends TestCase
         static::assertSame(
             $extension,
             pathinfo($file, PATHINFO_EXTENSION),
-            'Provided file has not the same extension, as given'
+            'Generated file has not the same extension as expects'
         );
     }
 
-    /**
-     * @covers FileGenerator::generate
-     */
-    public function testProvidesFileWithoutExtension(): void
+    #[Attributes\Test]
+    public function generatedFileWithoutExtension(): void
     {
         $generator  = new FileGenerator();
         $file       = $generator->generate();
@@ -78,13 +73,10 @@ class FileGeneratorTest extends TestCase
         static::assertSame(
             '',
             pathinfo($file, PATHINFO_EXTENSION),
-            'Provided file has any extension, while must be without it'
+            'Generated file has any extension, while must be without it'
         );
     }
 
-    /**
-     * Data provider: files extensions.
-     */
     public function dataProviderExtensions(): array
     {
         return [

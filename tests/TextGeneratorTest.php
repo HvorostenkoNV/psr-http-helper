@@ -5,42 +5,41 @@ declare(strict_types=1);
 namespace HNV\Http\HelperTests;
 
 use HNV\Http\Helper\Generator\Text as TextGenerator;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\{
+    Attributes,
+    TestCase,
+};
 
 use function in_array;
 use function strlen;
 
 /**
  * @internal
- * @covers TextGenerator
- * @small
  */
+#[Attributes\CoversClass(TextGenerator::class)]
+#[Attributes\Small]
 class TextGeneratorTest extends TestCase
 {
-    /**
-     * @covers Text::generate
-     */
-    public function testProvidesAnyValue(): void
+    #[Attributes\Test]
+    public function generate(): void
     {
         $generator  = new TextGenerator();
         $value      = $generator->generate();
 
         static::assertTrue(
             strlen($value) > 0,
-            'Provided value is empty string'
+            'Generated data is empty string'
         );
     }
 
-    /**
-     * @covers Text::generate
-     */
-    public function testProvidesRandomValue(): void
+    #[Attributes\Test]
+    public function generatesRandomValue(): void
     {
         $generator  = new TextGenerator();
         $values     = [];
 
         for ($iteration = 1; $iteration <= 100000; $iteration++) {
-            $value          = $generator->generate();
+            $value = $generator->generate();
             $values[$value] ??= 0;
             $values[$value]++;
         }

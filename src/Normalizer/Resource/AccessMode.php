@@ -14,9 +14,6 @@ use ValueError;
 use function str_contains;
 use function str_replace;
 
-/**
- * Access mode normalizer.
- */
 class AccessMode implements NormalizerInterface
 {
     private const SPECIAL_FLAG  = 'b';

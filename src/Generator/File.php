@@ -13,16 +13,8 @@ use function sys_get_temp_dir;
 use function tempnam;
 use function unlink;
 
-/**
- * File generator.
- */
 class File extends ClearableGenerator implements GeneratorInterface
 {
-    /**
-     * Constructor.
-     *
-     * @param string $extension file extension, optional
-     */
     public function __construct(private readonly string $extension = '')
     {
     }
@@ -48,9 +40,6 @@ class File extends ClearableGenerator implements GeneratorInterface
         return $filePathComplete;
     }
 
-    /**
-     * Create temporary file and get its path.
-     */
     private function createTemporaryFile(): string
     {
         $temporaryDirectory = sys_get_temp_dir();
@@ -63,9 +52,6 @@ class File extends ClearableGenerator implements GeneratorInterface
         return $temporaryFile;
     }
 
-    /**
-     * Add temporary file extension and get its new complete path.
-     */
     private function addTemporaryFileExtension(string $filePath, string $extension): string
     {
         $filePathWithExtension  = "{$filePath}.{$extension}";

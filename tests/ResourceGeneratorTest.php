@@ -12,22 +12,23 @@ use HNV\Http\Helper\Generator\{
     File        as FileGenerator,
     Resource    as ResourceGenerator,
 };
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\{
+    Attributes,
+    TestCase,
+};
 
 use function is_resource;
 use function stream_get_meta_data;
 
 /**
  * @internal
- * @covers ResourceGenerator
- * @small
  */
+#[Attributes\CoversClass(ResourceGenerator::class)]
+#[Attributes\Small]
 class ResourceGeneratorTest extends TestCase
 {
-    /**
-     * @covers ResourceGenerator::generate
-     */
-    public function testProvidesAnyValue(): void
+    #[Attributes\Test]
+    public function generate(): void
     {
         $file       = (new FileGenerator())->generate();
         $generator  = new ResourceGenerator($file, AccessMode::READ_ONLY_POINTER_START);
@@ -35,15 +36,13 @@ class ResourceGeneratorTest extends TestCase
 
         static::assertTrue(
             is_resource($recourse),
-            'Provided value is not a resource'
+            'Generated data is not a resource'
         );
     }
 
-    /**
-     * @covers          ResourceGenerator::generate
-     * @dataProvider    dataProviderModes
-     */
-    public function testProvidesRecourseInSuitableState(AccessMode $mode): void
+    #[Attributes\Test]
+    #[Attributes\DataProvider('dataProviderModes')]
+    public function generatedResourceIsSuitable(AccessMode $mode): void
     {
         $file           = (new FileGenerator())->generate();
         $generator      = new ResourceGenerator($file, $mode);
@@ -53,17 +52,14 @@ class ResourceGeneratorTest extends TestCase
         static::assertSame(
             $recourseData['mode'],
             $mode->value,
-            'Provided recourse with not the same mode'
+            'Generated recourse has not the same access mode as expects'
         );
         static::assertTrue(
             $recourseData['seekable'],
-            'Provided recourse is not seekable as it should be'
+            'Generated recourse is not seekable as it should be'
         );
     }
 
-    /**
-     * Data provider: resource open modes.
-     */
     public function dataProviderModes(): array
     {
         $result = [];

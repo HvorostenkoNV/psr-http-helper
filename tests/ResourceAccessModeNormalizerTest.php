@@ -9,48 +9,41 @@ use HNV\Http\Helper\Normalizer\{
     NormalizingException,
     Resource\AccessMode as AccessModeNormalizer,
 };
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\{
+    Attributes,
+    TestCase,
+};
 
 /**
  * @internal
- * @covers AccessModeNormalizer
- * @small
  */
+#[Attributes\CoversClass(AccessModeNormalizer::class)]
+#[Attributes\Small]
 class ResourceAccessModeNormalizerTest extends TestCase
 {
-    /**
-     * @covers          AccessModeNormalizer::normalize
-     * @dataProvider    dataProviderModesNormalizable
-     */
-    public function testNormalize(string $mode, AccessMode $modeNormalized): void
+    #[Attributes\Test]
+    #[Attributes\DataProvider('dataProviderModesNormalizable')]
+    public function normalize(string $mode, AccessMode $modeNormalized): void
     {
         try {
             static::assertSame(
                 $modeNormalized,
-                AccessModeNormalizer::normalize($mode),
-                'Normalized access mode is not as expected'
+                AccessModeNormalizer::normalize($mode)
             );
         } catch (NormalizingException) {
             static::fail('Exception is not expected');
         }
     }
 
-    /**
-     * @covers          AccessModeNormalizer::normalize
-     * @dataProvider    dataProviderModesInvalid
-     */
-    public function testThrowsException(string $mode): void
+    #[Attributes\Test]
+    #[Attributes\DataProvider('dataProviderModesInvalid')]
+    public function throwsException(string $mode): void
     {
         $this->expectException(NormalizingException::class);
 
         AccessModeNormalizer::normalize($mode);
-
-        static::fail("access mode [{$mode}] is invalid and expects exception");
     }
 
-    /**
-     * Data provider: resource open modes and their normalized representations.
-     */
     public function dataProviderModesNormalizable(): array
     {
         return [
@@ -86,9 +79,6 @@ class ResourceAccessModeNormalizerTest extends TestCase
         ];
     }
 
-    /**
-     * Data provider: resource open modes invalid values.
-     */
     public function dataProviderModesInvalid(): array
     {
         return [
