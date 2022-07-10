@@ -9,9 +9,6 @@ use HNV\Http\Helper\Collection\CasesValuesProviderTrait;
 use function array_filter;
 use function in_array;
 
-/**
- * Resource access modes collection.
- */
 enum AccessMode : string
 {
     use CasesValuesProviderTrait;
@@ -42,8 +39,6 @@ enum AccessMode : string
     }
 
     /**
-     * Get collection of given type.
-     *
      * @return self[]
      */
     private static function getCollection(AccessModeType $type): array

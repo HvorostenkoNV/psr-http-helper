@@ -9,23 +9,24 @@ use HNV\Http\Helper\Collection\Resource\{
     AccessModeType,
 };
 use HNV\Http\Helper\Generator\File as FileGenerator;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\{
+    Attributes,
+    TestCase,
+};
 
 use function fopen;
 use function stream_get_meta_data;
 
 /**
  * @internal
- * @covers AccessMode
- * @small
  */
+#[Attributes\CoversClass(AccessMode::class)]
+#[Attributes\Small]
 class ResourceAccessModeCollectionTest extends TestCase
 {
-    /**
-     * @covers          AccessMode::get
-     * @dataProvider    dataProviderModesSuitable
-     */
-    public function testSuitable(AccessMode $mode): void
+    #[Attributes\Test]
+    #[Attributes\DataProvider('dataProviderModesSuitable')]
+    public function suitable(AccessMode $mode): void
     {
         $file           = (new FileGenerator())->generate();
         $recourse       = fopen($file, $mode->value);
@@ -33,25 +34,22 @@ class ResourceAccessModeCollectionTest extends TestCase
 
         static::assertTrue(
             $recourseData['seekable'],
-            'Provided access mode is not readable'
+            "Access mode [{$mode->value}] should allow resource to be readable"
         );
     }
 
-    /**
-     * @covers          AccessMode::get
-     * @dataProvider    dataProviderModesNotSuitable
-     */
-    public function testNotSuitable(AccessMode $mode): void
+    #[Attributes\Test]
+    #[Attributes\DataProvider('dataProviderModesNotSuitable')]
+    public function notSuitable(AccessMode $mode): void
     {
-        static::expectWarning();
+        $this->expectWarning();
 
         $file = (new FileGenerator())->generate();
         fopen($file, $mode->value);
+
+        static::fail("Expects PHP warning using access mode [{$mode->value}]");
     }
 
-    /**
-     * Data provider: resource open modes seekable.
-     */
     public function dataProviderModesSuitable(): array
     {
         $result = [];
@@ -63,9 +61,6 @@ class ResourceAccessModeCollectionTest extends TestCase
         return $result;
     }
 
-    /**
-     * Data provider: resource open modes NOT seekable.
-     */
     public function dataProviderModesNotSuitable(): array
     {
         $result = [];

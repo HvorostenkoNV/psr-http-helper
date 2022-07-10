@@ -6,9 +6,6 @@ namespace HNV\Http\Helper\Normalizer;
 
 use Exception;
 
-/**
- * Normalizing exception.
- */
 class NormalizingException extends Exception
 {
 }

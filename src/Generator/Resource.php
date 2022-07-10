@@ -11,17 +11,8 @@ use function fclose;
 use function fopen;
 use function is_resource;
 
-/**
- * Single resource generator.
- */
 class Resource extends ClearableGenerator implements GeneratorInterface
 {
-    /**
-     * Constructor.
-     *
-     * @param string     $file file path
-     * @param AccessMode $mode resource access mode
-     */
     public function __construct(
         private readonly string $file,
         private readonly AccessMode $mode
@@ -31,7 +22,7 @@ class Resource extends ClearableGenerator implements GeneratorInterface
     /**
      * {@inheritDoc}
      *
-     * @return resource generated resource
+     * @return resource
      */
     public function generate(): mixed
     {

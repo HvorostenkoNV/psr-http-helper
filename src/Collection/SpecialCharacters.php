@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace HNV\Http\Helper\Collection;
 
-/**
- * Special character`s collection.
- */
 enum SpecialCharacters: string
 {
     use CasesValuesProviderTrait;

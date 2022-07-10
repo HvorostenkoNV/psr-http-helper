@@ -8,9 +8,6 @@ use function implode;
 use function rand;
 use function strlen;
 
-/**
- * Text generator.
- */
 class Text implements GeneratorInterface
 {
     private const CHARACTERS_IN_USE =
