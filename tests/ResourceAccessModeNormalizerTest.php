@@ -44,47 +44,43 @@ class ResourceAccessModeNormalizerTest extends TestCase
         AccessModeNormalizer::normalize($mode);
     }
 
-    public function dataProviderModesNormalizable(): array
+    public function dataProviderModesNormalizable(): iterable
     {
-        return [
-            ['r', AccessMode::READ_ONLY_POINTER_START],
-            ['rb', AccessMode::READ_ONLY_POINTER_START],
+        yield ['r', AccessMode::READ_ONLY_POINTER_START];
+        yield ['rb', AccessMode::READ_ONLY_POINTER_START];
 
-            ['r+', AccessMode::READ_AND_WRITE_POINTER_START],
-            ['rb+', AccessMode::READ_AND_WRITE_POINTER_START],
+        yield ['r+', AccessMode::READ_AND_WRITE_POINTER_START];
+        yield ['rb+', AccessMode::READ_AND_WRITE_POINTER_START];
 
-            ['w', AccessMode::WRITE_ONLY_FORCE_CLEAR_FORCE_CREATE],
-            ['wb', AccessMode::WRITE_ONLY_FORCE_CLEAR_FORCE_CREATE],
+        yield ['w', AccessMode::WRITE_ONLY_FORCE_CLEAR_FORCE_CREATE];
+        yield ['wb', AccessMode::WRITE_ONLY_FORCE_CLEAR_FORCE_CREATE];
 
-            ['w+', AccessMode::READ_AND_WRITE_FORCE_CLEAR_FORCE_CREATE],
-            ['wb+', AccessMode::READ_AND_WRITE_FORCE_CLEAR_FORCE_CREATE],
+        yield ['w+', AccessMode::READ_AND_WRITE_FORCE_CLEAR_FORCE_CREATE];
+        yield ['wb+', AccessMode::READ_AND_WRITE_FORCE_CLEAR_FORCE_CREATE];
 
-            ['a', AccessMode::WRITE_ONLY_POINTER_END_FORCE_CREATE],
-            ['ab', AccessMode::WRITE_ONLY_POINTER_END_FORCE_CREATE],
+        yield ['a', AccessMode::WRITE_ONLY_POINTER_END_FORCE_CREATE];
+        yield ['ab', AccessMode::WRITE_ONLY_POINTER_END_FORCE_CREATE];
 
-            ['a+', AccessMode::READ_AND_WRITE_POINTER_END_FORCE_CREATE],
-            ['ab+', AccessMode::READ_AND_WRITE_POINTER_END_FORCE_CREATE],
+        yield ['a+', AccessMode::READ_AND_WRITE_POINTER_END_FORCE_CREATE];
+        yield ['ab+', AccessMode::READ_AND_WRITE_POINTER_END_FORCE_CREATE];
 
-            ['x', AccessMode::WRITE_ONLY_POINTER_START_EXPECT_NO_FILE],
-            ['xb', AccessMode::WRITE_ONLY_POINTER_START_EXPECT_NO_FILE],
+        yield ['x', AccessMode::WRITE_ONLY_POINTER_START_EXPECT_NO_FILE];
+        yield ['xb', AccessMode::WRITE_ONLY_POINTER_START_EXPECT_NO_FILE];
 
-            ['x+', AccessMode::READ_AND_WRITE_POINTER_START_EXPECT_NO_FILE],
-            ['xb+', AccessMode::READ_AND_WRITE_POINTER_START_EXPECT_NO_FILE],
+        yield ['x+', AccessMode::READ_AND_WRITE_POINTER_START_EXPECT_NO_FILE];
+        yield ['xb+', AccessMode::READ_AND_WRITE_POINTER_START_EXPECT_NO_FILE];
 
-            ['c', AccessMode::WRITE_ONLY_POINTER_START_FORCE_CREATE],
-            ['cb', AccessMode::WRITE_ONLY_POINTER_START_FORCE_CREATE],
+        yield ['c', AccessMode::WRITE_ONLY_POINTER_START_FORCE_CREATE];
+        yield ['cb', AccessMode::WRITE_ONLY_POINTER_START_FORCE_CREATE];
 
-            ['c+', AccessMode::READ_AND_WRITE_POINTER_START_FORCE_CREATE],
-            ['cb+', AccessMode::READ_AND_WRITE_POINTER_START_FORCE_CREATE],
-        ];
+        yield ['c+', AccessMode::READ_AND_WRITE_POINTER_START_FORCE_CREATE];
+        yield ['cb+', AccessMode::READ_AND_WRITE_POINTER_START_FORCE_CREATE];
     }
 
-    public function dataProviderModesInvalid(): array
+    public function dataProviderModesInvalid(): iterable
     {
-        return [
-            ['someValue1'],
-            ['someValue2'],
-            ['someValue3'],
-        ];
+        yield ['someValue1'];
+        yield ['someValue2'];
+        yield ['someValue3'];
     }
 }

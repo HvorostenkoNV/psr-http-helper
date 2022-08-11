@@ -77,15 +77,13 @@ class FileGeneratorTest extends TestCase
         );
     }
 
-    public function dataProviderExtensions(): array
+    public function dataProviderExtensions(): iterable
     {
-        return [
-            ['xxx'],
-            ['yyy'],
-            ['jpg'],
-            ['txt'],
-            ['ts'],
-            ['nx'],
-        ];
+        yield ['xxx'];
+        yield ['yyy'];
+        yield ['jpg'];
+        yield ['txt'];
+        yield ['ts'];
+        yield ['nx'];
     }
 }

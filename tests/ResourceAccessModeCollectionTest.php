@@ -50,25 +50,17 @@ class ResourceAccessModeCollectionTest extends TestCase
         static::fail("Expects PHP warning using access mode [{$mode->value}]");
     }
 
-    public function dataProviderModesSuitable(): array
+    public function dataProviderModesSuitable(): iterable
     {
-        $result = [];
-
         foreach (AccessMode::get(AccessModeType::ALL, AccessModeType::EXPECT_NO_FILE) as $mode) {
-            $result[] = [$mode];
+            yield [$mode];
         }
-
-        return $result;
     }
 
-    public function dataProviderModesNotSuitable(): array
+    public function dataProviderModesNotSuitable(): iterable
     {
-        $result = [];
-
         foreach (AccessMode::get(AccessModeType::EXPECT_NO_FILE) as $mode) {
-            $result[] = [$mode];
+            yield [$mode];
         }
-
-        return $result;
     }
 }

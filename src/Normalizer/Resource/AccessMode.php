@@ -9,7 +9,7 @@ use HNV\Http\Helper\Normalizer\{
     NormalizerInterface,
     NormalizingException,
 };
-use ValueError;
+use Throwable;
 
 use function str_contains;
 use function str_replace;
@@ -34,7 +34,7 @@ class AccessMode implements NormalizerInterface
 
         try {
             return AccessModeValue::from($valueNormalized);
-        } catch (ValueError) {
+        } catch (Throwable) {
             throw new NormalizingException("mode {$value} is unknown");
         }
     }

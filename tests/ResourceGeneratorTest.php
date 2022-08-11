@@ -60,14 +60,10 @@ class ResourceGeneratorTest extends TestCase
         );
     }
 
-    public function dataProviderModes(): array
+    public function dataProviderModes(): iterable
     {
-        $result = [];
-
         foreach (AccessMode::get(AccessModeType::ALL, AccessModeType::EXPECT_NO_FILE) as $mode) {
-            $result[] = [$mode];
+            yield [$mode];
         }
-
-        return $result;
     }
 }
